@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Company Website</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <img src="image/company logo.png" alt="Company Logo" class="logo" />
+        <!-- <span class="brand-name">Company</span> -->
+      </div>
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+        <div class="dropdown">
+          <button class="dropdown-toggle" aria-expanded="false">Products</button>
+          <div class="dropdown-menu">
+            <a href="color box.html">Color Boxes</a>
+            <a href="gift box.html">Gift Boxes</a>
+            <a href="paper bag.html">Paper Bags</a>
+            <a href="other products.html">Others</a>
+          </div>
+        </div>
+      </nav>
+      <button class="mobile-menu-toggle" aria-label="Open Menu">☰</button>
+    </div>
+    <div class="mobile-nav">
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#contact">Contact</a>
+      <a href="color box.html">Color Boxes</a>
+      <a href="gift box.html">Gift Boxes</a>
+      <a href="paper bag.html">Paper Bags</a>
+      <a href="other products.html">Others</a>
+    </div>
+  </header>
+
+<br>
+<br>
+
+  <main>
+    <section id="home" class="hero-carousel">
+      <div class="carousel" id="carousel">
+        <div class="slide active" style="background-image:url('image/machine_1.jpg')">
+          <div class="slide-caption"><h1>Service with sincerity.</h1></div>
+        </div>
+        <div class="slide" style="background-image:url('image/machine_2.jpg')">
+          <div class="slide-caption"><h1>Striving for perfection.</h1></div>
+        </div>
+        <div class="slide" style="background-image:url('image/machine_3.jpg')">
+          <div class="slide-caption"><h1>One-stop service for printing and manufacturing.</h1></div>
+        </div>
+        <div class="slide" style="background-image:url('image/machine_4.jpg')">
+          <div class="slide-caption"><h1>Customized production.</h1></div>
+        </div>
+        <div class="slide" style="background-image:url('image/machine_5.jpg')">
+          <div class="slide-caption"><h1>Perfect color display.</h1></div>
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-prev" aria-label="上一張">‹</button>
+        <button class="carousel-next" aria-label="下一張">›</button>
+      </div>
+    </section>
+
+    <section class="gallery-section">
+      <h2>Product Display</h2>
+      <div class="gallery-grid">
+        <article class="gallery-item" id="color-boxes">
+          <a href="color box.html">
+            <img src="image/color box.png" alt="Color Boxes" />
+          </a>
+          <p>Color Boxes</p>
+        </article>
+        <article class="gallery-item" id="gift-boxes">
+          <a href="gift box.html">
+            <img src="image/gift box.png" alt="Gift Boxes" />
+          </a>
+          <p>Gift Boxes</p>
+        </article>
+        <article class="gallery-item" id="paper-bags">
+          <a href="paper bag.html">
+            <img src="image/paper bag.png" alt="Paper Bags" />
+          </a>
+          <p>Paper Bags</p>
+        </article>
+        <article class="gallery-item" id="others">
+          <a href="other products.html">
+            <img src="image/other.png" alt="Others" />
+          </a>
+          <p>Others</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <section id="about" class="about-section">
+    <div class="about-content">
+      <h1>About Us</h1>
+      <p>
+        <strong>Credit Printing & Paper Products Limited.</strong> established in 2010. Our company provides a one-stop service for printing and manufacturing. The products include color boxes, gift boxes, paper bags, display boxes, instruction manuals, labels, and hang tags. 
+Our office is in Hong Kong, and our factory is in Dongguan, China. Our factory has obtained FSC and ISO certifications. Welcome to contact us for inquiries and quotations.
+      </p>
+    </div>
+  <br>
+  </section>
+
+  <footer id="contact" class="site-footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <div class="footer-logo">Credit Printing and Paper Products Limited</div>
+        <h3>Contact Us</h3>
+        <p>Tel: +852 2728 2332</p>
+        <p>Whatsapp: +852 9563 x</p>
+        <p>E-mail: info@creditppl.hk</p>
+      </div>
+      <div class="footer-right">
+        <h3>Address</h3>
+        <p>Unit J & K, 14/F, Blk.4. Golden Dragon Industrial Centre.
+182-190 Tai Lin Pai Road, Kwai Chung, NT, HK</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Credit Printing and Paper Products Limited. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
