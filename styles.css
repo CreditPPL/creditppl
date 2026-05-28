@@ -346,6 +346,10 @@ body {
     padding: 0 16px;
   }
 
+  .logo {
+    width: min(320px, 30vw);
+  }
+
   .gallery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -356,8 +360,27 @@ body {
     display: none;
   }
 
+  .header-inner {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brand {
+    width: 100%;
+  }
+
+  .logo {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
   .mobile-menu-toggle {
     display: block;
+    order: 1;
+    margin: 12px 0 0;
+    align-self: flex-end;
   }
 
   .gallery-grid {
