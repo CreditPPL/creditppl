@@ -80,6 +80,17 @@ galleryItems.forEach((item) => {
       link.click();
     }
   });
+
+  const activateItem = () => item.classList.add('active');
+  const deactivateItem = () => item.classList.remove('active');
+
+  item.addEventListener('pointerdown', activateItem);
+  item.addEventListener('pointerup', deactivateItem);
+  item.addEventListener('pointercancel', deactivateItem);
+  item.addEventListener('pointerleave', deactivateItem);
+  item.addEventListener('touchstart', activateItem, { passive: true });
+  item.addEventListener('touchend', deactivateItem);
+  item.addEventListener('touchcancel', deactivateItem);
 });
 
 document.addEventListener('click', (event) => {

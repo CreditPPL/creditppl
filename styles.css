@@ -309,6 +309,7 @@ body {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   cursor: pointer;
   position: relative;
+  touch-action: manipulation;
 }
 
 .gallery-item::after {
@@ -327,12 +328,18 @@ body {
   pointer-events: none;
 }
 
-.gallery-item:hover {
+.gallery-item:hover,
+.gallery-item.active,
+.gallery-item:active,
+.gallery-item:focus-within {
   transform: translateY(-10px) scale(1.02);
   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 1) 0%, rgba(235, 245, 255, 0.95) 40%, rgba(173, 216, 230, 0.95) 100%);
 }
 
 .gallery-item:hover::after,
+.gallery-item.active::after,
+.gallery-item:active::after,
 .gallery-item:focus-within::after {
   opacity: 1;
 }
@@ -345,6 +352,18 @@ body {
   transition: transform 0.35s ease;
   position: relative;
   z-index: 1;
+}
+
+.gallery-item.active img,
+.gallery-item:active img,
+.gallery-item:focus-within img {
+  transform: scale(1.05);
+}
+
+.gallery-item.active p,
+.gallery-item:active p,
+.gallery-item:focus-within p {
+  color: var(--nav-link-blue);
 }
 
 .gallery-item:hover img,
