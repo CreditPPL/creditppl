@@ -62,6 +62,26 @@ if (prevButton) {
 setSlide(0);
 startCarousel();
 
+const galleryItems = document.querySelectorAll('.gallery-item');
+
+galleryItems.forEach((item) => {
+  const link = item.querySelector('a');
+  if (!link) return;
+
+  item.setAttribute('tabindex', '0');
+
+  item.addEventListener('click', () => {
+    link.click();
+  });
+
+  item.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      link.click();
+    }
+  });
+});
+
 document.addEventListener('click', (event) => {
   if (!dropdown.contains(event.target)) {
     dropdown.classList.remove('open');
