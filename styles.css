@@ -334,7 +334,7 @@ body {
 .gallery-item:focus-within {
   transform: translateY(-10px) scale(1.02);
   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
-  background: radial-gradient(circle at center, rgba(255, 255, 255, 1) 0%, rgba(235, 245, 255, 0.95) 40%, rgba(173, 216, 230, 0.95) 100%);
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 1) 0%, rgba(235, 245, 255, 0.95) 40%, rgba(54, 116, 116, 0.95) 100%);
 }
 
 .gallery-item:hover::after,
