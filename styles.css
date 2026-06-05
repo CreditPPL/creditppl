@@ -437,6 +437,20 @@ body {
   text-decoration: none;
 }
 
+/* Footer website link: default white, clicked/visited -> light blue */
+.site-footer a[href*="creditppl.hk"] {
+  color: var(--white);
+  text-decoration: none;
+}
+.site-footer a[href*="creditppl.hk"]:hover,
+.site-footer a[href*="creditppl.hk"]:focus,
+.site-footer a[href*="creditppl.hk"]:active {
+  color: #8fcfff;
+}
+.site-footer a[href*="creditppl.hk"]:visited {
+  color: #8fcfff;
+}
+
 .footer-bottom {
   border-top: 1px solid #333;
   padding-top: 16px;
