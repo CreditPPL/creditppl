@@ -186,7 +186,7 @@ h1 {
 
 <div id="modal1" class="modal">
   <span class="close" onclick="closeModal('modal1')">&times;</span>
-  <img src="image-other-260528/otr-3D0001.png" alt="Other Product 3D" class="modal-content" width="600" height="400">
+  <iframe class="modal-content" title="Other Product 3D video" data-src="https://www.youtube.com/embed/hGc00rJrkB8?autoplay=1&rel=0" width="405" height="720" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
   <div class="caption"></div>
 </div>
 
@@ -299,6 +299,10 @@ function openModal(modalId, caption) {
     console.warn('Modal not found:', modalId);
     return;
   }
+  let video = modal.querySelector('iframe[data-src]');
+  if (video) {
+    video.src = video.dataset.src;
+  }
   modal.style.display = "flex";
   modal.classList.add("show");
   let message = modal.querySelector(".caption");
@@ -309,6 +313,10 @@ function openModal(modalId, caption) {
 
 function closeModal(modalId) {
   let modal = document.getElementById(modalId);
+  let video = modal.querySelector('iframe[data-src]');
+  if (video) {
+    video.src = "about:blank";
+  }
   modal.classList.remove("show");
   setTimeout(function () {
     modal.style.display = "none";
