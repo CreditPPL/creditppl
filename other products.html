@@ -84,6 +84,14 @@ h1 {
   object-fit: contain;
 }
 
+.video-content {
+  width: min(90vw, 405px);
+  height: min(80vh, 720px);
+  max-width: 90vw;
+  max-height: 80vh;
+  aspect-ratio: 405 / 720;
+}
+
 @keyframes zoomIn {
   from {transform: scale(0.6);}
   to {transform: scale(1);}
@@ -146,6 +154,7 @@ h1 {
             <a href="color box.html">Color Boxes</a>
             <a href="gift box.html">Gift Boxes</a>
             <a href="paper bag.html">Paper Bags</a>
+            <a href="lenticular.html">Lenticular Products</a>
             <a href="other products.html">Others</a>
           </div>
         </div>
@@ -160,6 +169,7 @@ h1 {
       <a href="color box.html">Color Boxes</a>
       <a href="gift box.html">Gift Boxes</a>
       <a href="paper bag.html">Paper Bags</a>
+      <a href="lenticular.html">Lenticular Products</a>
       <a href="other products.html">Others</a>
       <a href="index-cn.html" class="eng-link">中文</a>
     </div>
@@ -186,7 +196,7 @@ h1 {
 
 <div id="modal1" class="modal">
   <span class="close" onclick="closeModal('modal1')">&times;</span>
-  <img src="image-other-260528/otr-3D0001.png" alt="Other Product 3D" class="modal-content" width="600" height="400">
+  <iframe class="modal-content video-content" title="Other Product 3D video" data-src="https://www.youtube.com/embed/hGc00rJrkB8?autoplay=1&rel=0" width="405" height="720" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
   <div class="caption"></div>
 </div>
 
@@ -299,6 +309,10 @@ function openModal(modalId, caption) {
     console.warn('Modal not found:', modalId);
     return;
   }
+  let video = modal.querySelector('iframe[data-src]');
+  if (video) {
+    video.src = video.dataset.src;
+  }
   modal.style.display = "flex";
   modal.classList.add("show");
   let message = modal.querySelector(".caption");
@@ -309,6 +323,10 @@ function openModal(modalId, caption) {
 
 function closeModal(modalId) {
   let modal = document.getElementById(modalId);
+  let video = modal.querySelector('iframe[data-src]');
+  if (video) {
+    video.src = "about:blank";
+  }
   modal.classList.remove("show");
   setTimeout(function () {
     modal.style.display = "none";

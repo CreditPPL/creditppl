@@ -63,6 +63,61 @@ setSlide(0);
 startCarousel();
 
 const galleryItems = document.querySelectorAll('.gallery-item');
+const gallerySlider = document.querySelector('.gallery-slider');
+const galleryTrack = document.querySelector('.gallery-track');
+const galleryPrev = document.querySelector('.gallery-prev');
+const galleryNext = document.querySelector('.gallery-next');
+
+let galleryIndex = 0;
+
+function getGalleryStep() {
+  if (!galleryItems.length || !galleryTrack) return 0;
+  const firstItem = galleryItems[0];
+  const style = window.getComputedStyle(galleryTrack);
+  const gap = Number.parseFloat(style.gap || style.columnGap || '20');
+  return firstItem.getBoundingClientRect().width + gap;
+}
+
+function getMaxGalleryIndex() {
+  if (!galleryItems.length || !gallerySlider) return 0;
+
+  const maxVisibleCards = 4;
+  const visibleCards = Math.min(
+    maxVisibleCards,
+    Math.max(1, Math.floor((gallerySlider.clientWidth + 20) / getGalleryStep()))
+  );
+
+  return Math.max(0, galleryItems.length - visibleCards);
+}
+
+function updateGalleryPosition() {
+  if (!galleryTrack || !galleryItems.length) return;
+  const maxIndex = getMaxGalleryIndex();
+  galleryIndex = Math.min(Math.max(galleryIndex, 0), maxIndex);
+  galleryTrack.style.transform = `translateX(-${galleryIndex * getGalleryStep()}px)`;
+
+  if (galleryPrev) {
+    galleryPrev.disabled = galleryIndex === 0;
+  }
+
+  if (galleryNext) {
+    galleryNext.disabled = galleryIndex >= maxIndex;
+  }
+}
+
+function moveGallery(direction) {
+  if (!galleryItems.length) return;
+  const maxIndex = getMaxGalleryIndex();
+  galleryIndex = Math.min(Math.max(galleryIndex + direction, 0), maxIndex);
+  updateGalleryPosition();
+}
+
+if (galleryPrev && galleryNext && gallerySlider && galleryTrack) {
+  galleryPrev.addEventListener('click', () => moveGallery(-1));
+  galleryNext.addEventListener('click', () => moveGallery(1));
+  window.addEventListener('resize', updateGalleryPosition);
+  updateGalleryPosition();
+}
 
 galleryItems.forEach((item) => {
   const link = item.querySelector('a');
@@ -94,7 +149,7 @@ galleryItems.forEach((item) => {
 });
 
 document.addEventListener('click', (event) => {
-  if (!dropdown.contains(event.target)) {
+  if (dropdown && !dropdown.contains(event.target)) {
     dropdown.classList.remove('open');
   }
 });
