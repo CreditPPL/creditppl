@@ -305,6 +305,7 @@ body {
 .gallery-slider {
   overflow: hidden;
   position: relative;
+  touch-action: pan-y;
 }
 
 .gallery-track {
@@ -313,6 +314,10 @@ body {
   width: max-content;
   transition: transform 0.35s ease;
   will-change: transform;
+}
+
+.gallery-slider.is-dragging .gallery-track {
+  transition: none;
 }
 
 .gallery-item {

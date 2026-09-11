@@ -69,6 +69,10 @@ const galleryPrev = document.querySelector('.gallery-prev');
 const galleryNext = document.querySelector('.gallery-next');
 
 let galleryIndex = 0;
+let galleryPointerId = null;
+let galleryStartX = 0;
+let galleryStartY = 0;
+let galleryWasDragged = false;
 
 function getGalleryStep() {
   if (!galleryItems.length || !galleryTrack) return 0;
@@ -117,6 +121,49 @@ if (galleryPrev && galleryNext && gallerySlider && galleryTrack) {
   galleryNext.addEventListener('click', () => moveGallery(1));
   window.addEventListener('resize', updateGalleryPosition);
   updateGalleryPosition();
+
+  const endGalleryPointer = (event) => {
+    if (galleryPointerId !== event.pointerId) return;
+
+    const distanceX = event.clientX - galleryStartX;
+    gallerySlider.classList.remove('is-dragging');
+    galleryPointerId = null;
+
+    if (galleryWasDragged && Math.abs(distanceX) > 40) {
+      moveGallery(distanceX < 0 ? 1 : -1);
+    } else {
+      updateGalleryPosition();
+    }
+  };
+
+  gallerySlider.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+
+    galleryPointerId = event.pointerId;
+    galleryStartX = event.clientX;
+    galleryStartY = event.clientY;
+    galleryWasDragged = false;
+    gallerySlider.classList.add('is-dragging');
+    gallerySlider.setPointerCapture(event.pointerId);
+  });
+
+  gallerySlider.addEventListener('pointermove', (event) => {
+    if (galleryPointerId !== event.pointerId) return;
+
+    const distanceX = event.clientX - galleryStartX;
+    const distanceY = event.clientY - galleryStartY;
+    if (!galleryWasDragged && Math.abs(distanceX) <= Math.abs(distanceY)) return;
+
+    if (Math.abs(distanceX) > 8) galleryWasDragged = true;
+    if (!galleryWasDragged) return;
+
+    const maxOffset = getMaxGalleryIndex() * getGalleryStep();
+    const offset = Math.min(0, Math.max(-maxOffset, -galleryIndex * getGalleryStep() + distanceX));
+    galleryTrack.style.transform = `translateX(${offset}px)`;
+  });
+
+  gallerySlider.addEventListener('pointerup', endGalleryPointer);
+  gallerySlider.addEventListener('pointercancel', endGalleryPointer);
 }
 
 galleryItems.forEach((item) => {
@@ -126,6 +173,10 @@ galleryItems.forEach((item) => {
   item.setAttribute('tabindex', '0');
 
   item.addEventListener('click', () => {
+    if (galleryWasDragged) {
+      galleryWasDragged = false;
+      return;
+    }
     link.click();
   });
 
