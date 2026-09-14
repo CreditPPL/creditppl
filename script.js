@@ -138,6 +138,7 @@ if (galleryPrev && galleryNext && gallerySlider && galleryTrack) {
 
   gallerySlider.addEventListener('pointerdown', (event) => {
     if (event.pointerType === 'mouse' && event.button !== 0) return;
+    if (event.pointerType === 'mouse') return;
 
     galleryPointerId = event.pointerId;
     galleryStartX = event.clientX;
@@ -172,11 +173,15 @@ galleryItems.forEach((item) => {
 
   item.setAttribute('tabindex', '0');
 
-  item.addEventListener('click', () => {
+  item.addEventListener('click', (event) => {
     if (galleryWasDragged) {
+      event.preventDefault();
+      event.stopPropagation();
       galleryWasDragged = false;
       return;
     }
+
+    if (event.target.closest('a')) return;
     link.click();
   });
 
