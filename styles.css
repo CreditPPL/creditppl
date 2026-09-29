@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Quicksand:wght@300..700&display=swap');
 
 :root {
-  --header-height: 150px;
+  --header-height: 110px;
   --white: #ffffff;
   --dark: #0f0f0f;
   --text: #0a0a0a;
