@@ -7,12 +7,81 @@ const prevButton = document.querySelector('.carousel-prev');
 const nextButton = document.querySelector('.carousel-next');
 let currentIndex = 0;
 let carouselTimer;
+const typewriterHeadings = Array.from(carouselSlides, (slide) => {
+  const heading = slide.querySelector('.typewriter-heading');
+  return heading ? {
+    element: heading.querySelector('span'),
+    text: heading.getAttribute('aria-label') || heading.textContent.trim(),
+    timer: null
+  } : null;
+});
+const configuredTypewriterDelay = Number(document.body.dataset.typewriterSpeed);
+const typewriterDelay = Number.isFinite(configuredTypewriterDelay) && configuredTypewriterDelay > 0
+  ? configuredTypewriterDelay
+  : 75;
+const aboutHeading = document.querySelector('.about-content .typewriter-heading');
+let activeCarouselTypewriter;
+
+function startTypewriter(heading) {
+  if (!heading || !heading.element) return;
+
+  clearTimeout(heading.timer);
+  heading.element.classList.remove('is-typing');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    heading.element.textContent = heading.text;
+    return;
+  }
+
+  let characterIndex = 0;
+  heading.element.textContent = '';
+  heading.element.classList.add('is-typing');
+
+  function typeNextCharacter() {
+    heading.element.textContent = heading.text.slice(0, characterIndex + 1);
+    characterIndex += 1;
+    if (characterIndex < heading.text.length) {
+      heading.timer = setTimeout(typeNextCharacter, typewriterDelay);
+    } else {
+      heading.element.classList.remove('is-typing');
+    }
+  }
+
+  if (heading.text.length) {
+    typeNextCharacter();
+  } else {
+    heading.element.classList.remove('is-typing');
+  }
+}
+
+if (aboutHeading) {
+  const aboutTypewriter = {
+    element: aboutHeading.querySelector('span'),
+    text: aboutHeading.getAttribute('aria-label') || aboutHeading.textContent.trim(),
+    timer: null
+  };
+  const aboutObserver = new IntersectionObserver((entries, observer) => {
+    if (entries.some((entry) => entry.isIntersecting)) {
+      startTypewriter(aboutTypewriter);
+      observer.disconnect();
+    }
+  });
+  aboutObserver.observe(aboutHeading);
+}
 
 function setSlide(index) {
   carouselSlides.forEach((slide, i) => {
     slide.classList.toggle('active', i === index);
   });
   currentIndex = index;
+  const heading = typewriterHeadings[index];
+  if (activeCarouselTypewriter && activeCarouselTypewriter !== heading) {
+    clearTimeout(activeCarouselTypewriter.timer);
+    activeCarouselTypewriter.element.classList.remove('is-typing');
+  }
+  activeCarouselTypewriter = heading;
+  if (heading) {
+    startTypewriter(heading);
+  }
 }
 
 function nextSlide() {
@@ -24,7 +93,11 @@ function prevSlide() {
 }
 
 function startCarousel() {
-  carouselTimer = setInterval(nextSlide, 5000);
+  const longestTypingDuration = Math.max(
+    0,
+    ...typewriterHeadings.filter(Boolean).map(({ text }) => text.length * typewriterDelay + 1000)
+  );
+  carouselTimer = setInterval(nextSlide, Math.max(5000, longestTypingDuration));
 }
 
 function stopCarousel() {

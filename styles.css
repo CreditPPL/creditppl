@@ -227,6 +227,23 @@ body {
   padding: 0 16px;
 }
 
+.typewriter-heading span.is-typing::after {
+  content: '|';
+  animation: typewriter-caret 0.8s steps(1) infinite;
+}
+
+@keyframes typewriter-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typewriter-heading span.is-typing::after {
+    animation: none;
+  }
+}
+
 .carousel-controls {
   position: absolute;
   top: 50%;
